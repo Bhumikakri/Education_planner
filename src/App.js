@@ -1,23 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import Main from "./component/main";
+import { useState } from "react";
+import Card from './component/Card';
 
 function App() {
+
+  const[planner,setplanner]=useState([]);
+
+  function Cardfuntion(e){
+    // console.log(e);
+    localStorage.setItem('planner',JSON.stringify(planner));
+    setplanner([...planner,e]);
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Geekster Education Planner</h1>
+      <Main makingcard={Cardfuntion} />
+      {
+        planner.map((objectvalue)=>{
+          return <Card {...objectvalue}/>
+          })
+      }
     </div>
   );
 }
